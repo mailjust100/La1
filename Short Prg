@@ -106,3 +106,58 @@ For each pair, we look up the positions in your matrix:
   * on → **SI**
   * ig → **RB**
   * ht → **EW**
+
+
+____________________________________________________________________________________________________________
+
+public class Playfair {
+    public static void main(String[] args) {
+        char[][] matrix = {
+            {'L', 'G', 'D', 'B', 'A'},
+            {'Q', 'M', 'H', 'E', 'C'},
+            {'U', 'R', 'N', 'I', 'F'}, 
+            {'X', 'V', 'S', 'O', 'K'},
+            {'Z', 'Y', 'W', 'T', 'P'}
+        };
+        String txt = "thehouseisbeingsoldtonight".replace("j", "i");
+        StringBuilder res = new StringBuilder();
+
+        for (int i = 0; i < txt.length(); i += 2) {
+            char a = txt.charAt(i);
+            char b = (i + 1 < txt.length()) ? txt.charAt(i + 1) : 'X';
+            int[] p1 = getPos(matrix, a), p2 = getPos(matrix, b);
+
+            if (p1[0] == p2[0]) { // Same Row
+                res.append(matrix[p1[0]][(p1[1] + 1) % 5]);
+                res.append(matrix[p2[0]][(p2[1] + 1) % 5]);
+            } else if (p1[1] == p2[1]) { // Same Column
+                res.append(matrix[(p1[0] + 1) % 5][p1[1]]);
+                res.append(matrix[(p2[0] + 1) % 5][p2[1]]);
+            } else { // Rectangle
+                res.append(matrix[p1[0]][p2[1]]);
+                res.append(matrix[p2[0]][p1[1]]);
+            }
+        }
+
+        // --- UPDATED OUTPUT SECTION ---
+        
+        // 1. Show Cipher Text FIRST
+        System.out.println("Cipher Text:     " + res);
+
+        // 2. Show Playfair Matrix (Cipher) NEXT
+        System.out.println("\nPlayfair Cipher Matrix:");
+        for (char[] row : matrix) {
+            for (char c : row) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    static int[] getPos(char[][] m, char c) {
+        for (int r = 0; r < 5; r++) 
+            for (int k = 0; k < 5; k++) 
+                if (m[r][k] == c) return new int[]{r, k};
+        return null;
+    }
+}
