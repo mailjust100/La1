@@ -119,8 +119,8 @@ public class Playfair {
             {'X', 'V', 'S', 'O', 'K'},
             {'Z', 'Y', 'W', 'T', 'P'}
         };
-        String txt = "thehouseisbeingsoldtonight".replace("j", "i");
-        StringBuilder res = new StringBuilder();
+String txt = "thehouseisbeingsoldtonight".toUpperCase().replace("J", "I");        
+StringBuilder res = new StringBuilder();
 
         for (int i = 0; i < txt.length(); i += 2) {
             char a = txt.charAt(i);
